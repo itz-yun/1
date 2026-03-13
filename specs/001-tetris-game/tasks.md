@@ -85,11 +85,11 @@
 
 > **Write these tests FIRST; ensure they FAIL before implementing scoring logic**
 
-- [ ] T014 [P] [US3] Write unit tests for calculateLineScore(linesCleared, level) (1×L=100, 2×L=300, 3×L=500, 4×L=800), levelFromLines(totalLines) (0→1, 9→1, 10→2, 19→2, 20→3), and gravityInterval(level) (level 1→800ms, level 10≈343ms, level 29+→50ms floor) in tests/unit/game.test.js
+- [ ] T014 [US3] Write unit tests for calculateLineScore(linesCleared, level) (1×L=100, 2×L=300, 3×L=500, 4×L=800), levelFromLines(totalLines) (0→1, 9→1, 10→2, 19→2, 20→3), and gravityInterval(level) (level 1→800ms, level 10≈343ms, level 29+→50ms floor) in tests/unit/game.test.js
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Implement calculateLineScore(linesCleared, level) and integrate into lockAndSpawn() in src/game.js — add `[100,300,500,800][linesCleared-1] * level` to score when linesCleared > 0 in src/game.js
+- [ ] T015 [US3] Implement calculateLineScore(linesCleared, level) in src/game.js using scoring table `{1:100, 2:300, 3:500, 4:800}[linesCleared] * level` (linesCleared is always 1–4 from clearLines) and integrate into lockAndSpawn() in src/game.js
 - [ ] T016 [US3] Implement levelFromLines(totalLines) (`Math.floor(total/10)+1`) and gravityInterval(level) (`Math.max(50, 800 / Math.pow(1.1, level-1))`) in src/game.js; update game loop in src/main.js to use gravityInterval(state.level) per frame in src/game.js and src/main.js
 - [ ] T017 [US3] Implement localStorage high score in src/game.js: getHighScore() (`parseInt(localStorage.getItem('tetrisHighScore')||'0',10)`), saveHighScore(score); call saveHighScore after score update in lockAndSpawn(); add updateHighScoreUI(state) in src/renderer.js to update #high-score DOM element and load from localStorage on init in src/game.js and src/renderer.js
 
@@ -168,7 +168,7 @@
 - T003 (src/tetrominos.js) and T004 (src/board.js): parallel — different files
 - T005 (tests/unit/tetrominos.test.js) and T006 (tests/unit/board.test.js): parallel — different files
 - T008 (src/renderer.js) and T009 (src/input.js): parallel — different files
-- T014 (tests/unit/game.test.js) and T015–T017 implementations: T014 must fail first
+- T014 (tests/unit/game.test.js) must FAIL before starting T015–T017 implementations (no parallelism)
 - T021 (drawGhostPiece) and T022 (Space key + hardDrop): parallel — different concerns
 
 ---
