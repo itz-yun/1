@@ -31,12 +31,7 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- [ ] 規格與計畫內容使用繁體中文（不可翻譯項目除外）
-- [ ] 設計範圍符合最小必要原則，無未被需求驅動的過度設計
-- [ ] 已定義 TDD 流程（先測試失敗，再實作）
-- [ ] 已規劃各階段 Git 狀態驗證點（至少 `git status --short --branch`）
-- [ ] 若為網站專案，預設方案為可部署 GitHub Pages 的靜態前端
-- [ ] 已確認 implement 階段不刪除或覆蓋 `spec.md`、`plan.md`、`tasks.md`
+[Gates determined based on constitution file]
 
 ## Project Structure
 

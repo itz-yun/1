@@ -5,8 +5,6 @@
 **Status**: Draft  
 **Input**: User description: "$ARGUMENTS"
 
-> 憲章對齊要求：本文件 MUST 使用繁體中文、採最小必要設計，且需求需可支援後續 TDD。
-
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
