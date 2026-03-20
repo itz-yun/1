@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>俄羅斯方塊</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #1a1a2e;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: #00f0f0;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px rgba(0,240,240,0.5);
+    }
+
+    #game-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 16px;
+      max-width: 460px;
+    }
+
+    #canvas-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    #game-canvas {
+      display: block;
+      width: 300px;
+      height: 600px;
+      touch-action: none;
+      border: 2px solid #333;
+    }
+
+    #game-over-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 600px;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    #game-over-overlay h2 {
+      font-size: 2rem;
+      color: #ff4444;
+      text-shadow: 0 0 12px rgba(255,68,68,0.7);
+    }
+
+    #game-over-overlay p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    #final-score {
+      font-size: 1.5rem;
+      color: #f0f000;
+    }
+
+    #sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 120px;
+    }
+
+    .panel {
+      background: #16213e;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 10px;
+    }
+
+    .panel h3 {
+      font-size: 0.75rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .panel .value {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #e0e0e0;
+    }
+
+    #next-canvas {
+      display: block;
+      background: #000;
+      border: 1px solid #333;
+    }
+
+    #start-btn {
+      width: 100%;
+      padding: 10px 0;
+      background: #00f0f0;
+      color: #000;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    #start-btn:hover {
+      background: #00c8c8;
+    }
+
+    #start-btn:active {
+      transform: scale(0.97);
+    }
+
+    .hint {
+      font-size: 0.7rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* Responsive: stack vertically on narrow screens */
+    @media (max-width: 440px) {
+      #game-container {
+        flex-direction: column;
+        align-items: center;
+        max-width: 100%;
+      }
+
+      #sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-width: auto;
+        width: 300px;
+      }
+
+      .panel {
+        flex: 1 1 120px;
+        min-width: 100px;
+      }
+
+      .hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>俄羅斯方塊</h1>
+
+  <div id="game-container">
+    <div id="canvas-wrapper">
+      <canvas id="game-canvas" width="300" height="600"></canvas>
+      <div id="game-over-overlay">
+        <h2>GAME OVER</h2>
+        <p>最終分數</p>
+        <div id="final-score">0</div>
+        <p>按 R 鍵或點擊按鈕重新開始</p>
+      </div>
+    </div>
+
+    <div id="sidebar">
+      <div class="panel">
+        <h3>下一個</h3>
+        <canvas id="next-canvas" width="120" height="120"></canvas>
+      </div>
+
+      <div class="panel">
+        <h3>分數</h3>
+        <div class="value" id="score">0</div>
+      </div>
+
+      <div class="panel">
+        <h3>最高分</h3>
+        <div class="value" id="high-score">0</div>
+      </div>
+
+      <div class="panel">
+        <h3>等級</h3>
+        <div class="value" id="level">1</div>
+      </div>
+
+      <div class="panel">
+        <h3>行數</h3>
+        <div class="value" id="lines">0</div>
+      </div>
+
+      <button id="start-btn">開始遊戲</button>
+
+      <div class="hint">
+        <strong>鍵盤操作</strong><br>
+        ← → 移動<br>
+        ↑ / Z 旋轉<br>
+        ↓ 加速下落<br>
+        Space 硬降<br>
+        R 重新開始
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

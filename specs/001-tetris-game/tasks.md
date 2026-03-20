@@ -19,10 +19,10 @@
 
 **Purpose**: Project initialization and basic file structure
 
-- [ ] T001 Create repository file structure: `index.html`, `src/` directory, `tests/unit/` directory per plan.md project structure
-- [ ] T002 Create `package.json` with Jest configuration (`--experimental-vm-modules`) and test script `"test": "node --experimental-vm-modules node_modules/.bin/jest"` at repository root
-- [ ] T003 [P] Create empty ES-module stub files: `src/tetrominos.js`, `src/board.js`, `src/game.js`, `src/renderer.js`, `src/input.js`, `src/main.js`
-- [ ] T004 [P] Create empty test stub files: `tests/unit/board.test.js`, `tests/unit/game.test.js`, `tests/unit/tetrominos.test.js`
+- [X] T001 Create repository file structure: `index.html`, `src/` directory, `tests/unit/` directory per plan.md project structure
+- [X] T002 Create `package.json` with Jest configuration (`--experimental-vm-modules`) and test script `"test": "node --experimental-vm-modules node_modules/.bin/jest"` at repository root
+- [X] T003 [P] Create empty ES-module stub files: `src/tetrominos.js`, `src/board.js`, `src/game.js`, `src/renderer.js`, `src/input.js`, `src/main.js`
+- [X] T004 [P] Create empty test stub files: `tests/unit/board.test.js`, `tests/unit/game.test.js`, `tests/unit/tetrominos.test.js`
 
 **Checkpoint**: Repository structure is in place; `npm test` runs (with no tests yet)
 
@@ -34,13 +34,13 @@
 
 **⚠️ CRITICAL**: No user story implementation can begin until this phase is complete
 
-- [ ] T005 Define all 7 Tetromino type constants, color map, and 4-rotation shape matrices (SRS standard) in `src/tetrominos.js`
-- [ ] T006 [P] Define SRS Wall Kick offset tables for JLSTZ pieces and I piece (see research.md §1) in `src/tetrominos.js`
-- [ ] T007 Implement `SevenBagRandomizer` class with `next()`, `peek()`, and Fisher-Yates `_shuffle()` methods in `src/tetrominos.js`
-- [ ] T008 Define `Board` data structure (10×20 `grid` array, `WIDTH=10`, `HEIGHT=20` constants) and skeleton operation signatures in `src/board.js`
-- [ ] T009 Define `GameState` object schema (status, board, currentPiece, nextPieceType, score, highScore, level, totalLinesCleared, gravityTimer) and `createInitialState()` factory in `src/game.js`
-- [ ] T010 [P] Build HTML skeleton in `index.html`: `#game-canvas` (300×600), `#next-canvas` (120×120), `#score`, `#high-score`, `#level`, `#lines`, `#start-btn`, `#game-over-overlay`, `#final-score` per ui-contract.md §2
-- [ ] T011 [P] Add base CSS layout (flexbox: canvas left + sidebar right) and dark theme styles in `index.html` `<style>` block per ui-contract.md §1
+- [X] T005 Define all 7 Tetromino type constants, color map, and 4-rotation shape matrices (SRS standard) in `src/tetrominos.js`
+- [X] T006 [P] Define SRS Wall Kick offset tables for JLSTZ pieces and I piece (see research.md §1) in `src/tetrominos.js`
+- [X] T007 Implement `SevenBagRandomizer` class with `next()`, `peek()`, and Fisher-Yates `_shuffle()` methods in `src/tetrominos.js`
+- [X] T008 Define `Board` data structure (10×20 `grid` array, `WIDTH=10`, `HEIGHT=20` constants) and skeleton operation signatures in `src/board.js`
+- [X] T009 Define `GameState` object schema (status, board, currentPiece, nextPieceType, score, highScore, level, totalLinesCleared, gravityTimer) and `createInitialState()` factory in `src/game.js`
+- [X] T010 [P] Build HTML skeleton in `index.html`: `#game-canvas` (300×600), `#next-canvas` (120×120), `#score`, `#high-score`, `#level`, `#lines`, `#start-btn`, `#game-over-overlay`, `#final-score` per ui-contract.md §2
+- [X] T011 [P] Add base CSS layout (flexbox: canvas left + sidebar right) and dark theme styles in `index.html` `<style>` block per ui-contract.md §1
 
 **Checkpoint**: Foundation ready — all data structures defined, HTML shell renders; user story phases can begin
 
@@ -54,23 +54,23 @@
 
 ### Tests for User Story 1 ⚠️ Write FIRST — must FAIL before implementation
 
-- [ ] T012 [US1] Write `Board` collision detection tests: `isOccupied()` boundary/occupied/empty cases, `canPlace()` valid/invalid positions in `tests/unit/board.test.js`
-- [ ] T013 [P] [US1] Write `Board` mutation tests: `lockPiece()` writes correct cells, `clearLines()` removes full rows and shifts rows down correctly in `tests/unit/board.test.js`
-- [ ] T014 [P] [US1] Write Tetromino rotation tests: each of 7 pieces rotates through 4 states correctly; Wall Kick offsets applied in order; failed rotation leaves piece unchanged in `tests/unit/tetrominos.test.js`
+- [X] T012 [US1] Write `Board` collision detection tests: `isOccupied()` boundary/occupied/empty cases, `canPlace()` valid/invalid positions in `tests/unit/board.test.js`
+- [X] T013 [P] [US1] Write `Board` mutation tests: `lockPiece()` writes correct cells, `clearLines()` removes full rows and shifts rows down correctly in `tests/unit/board.test.js`
+- [X] T014 [P] [US1] Write Tetromino rotation tests: each of 7 pieces rotates through 4 states correctly; Wall Kick offsets applied in order; failed rotation leaves piece unchanged in `tests/unit/tetrominos.test.js`
 
 ### Implementation for User Story 1
 
-- [ ] T015 [US1] Implement `Board.isOccupied(row, col)` (boundary + occupied check) and `Board.canPlace(piece)` in `src/board.js`
-- [ ] T016 [US1] Implement `Board.lockPiece(piece)` (write piece cells to grid) and `Board.clearLines()` (remove full rows, shift rows down, return `linesCleared`) in `src/board.js`
-- [ ] T017 [US1] Implement piece spawn: `spawnPiece(type)` sets initial `x` (centre of board), `y` (-1), `rotation=0`, `shape` from tetrominos table in `src/game.js`
-- [ ] T018 [US1] Implement gravity timer and auto-fall logic: each frame advance `gravityTimer` by `deltaTime`; move piece down when timer exceeds `gravityInterval`; lock piece on collision in `src/game.js`
-- [ ] T019 [US1] Implement move-left, move-right, and soft-drop actions with collision checks (`canPlace`) in `src/game.js`
-- [ ] T020 [US1] Implement SRS rotation with Wall Kick: try each offset from research.md tables; apply first that passes `canPlace`; cancel rotation if all fail in `src/game.js`
-- [ ] T021 [US1] Implement piece-locking sequence: call `lockPiece()`, call `clearLines()`, update `score` (100/300/500/800 × level for 1/2/3/4 lines), increment `totalLinesCleared`, compute new `level`, spawn next piece in `src/game.js`
-- [ ] T022 [P] [US1] Implement keyboard input handler: `keydown` / `keyup` listeners mapping Arrow keys, `Z`/`X` to `InputState` flags; debounce left/right repeat with `DAS`/`ARR` timing in `src/input.js`
-- [ ] T023 [US1] Implement `Renderer.drawBoard(ctx, board)` — clear canvas, draw background grid, iterate `board.grid` and call `drawCell()` for each occupied cell per ui-contract.md §3.1–3.2 in `src/renderer.js`
-- [ ] T024 [US1] Implement `Renderer.drawPiece(ctx, piece, alpha)` using `drawCell()` spec (fill + bright top-left edge + dark bottom-right edge) in `src/renderer.js`
-- [ ] T025 [US1] Implement `main.js` entry point: acquire canvas contexts, instantiate `SevenBagRandomizer`, create initial `GameState`, start `requestAnimationFrame` loop that reads `InputState`, updates game logic, and calls renderer each frame in `src/main.js`
+- [X] T015 [US1] Implement `Board.isOccupied(row, col)` (boundary + occupied check) and `Board.canPlace(piece)` in `src/board.js`
+- [X] T016 [US1] Implement `Board.lockPiece(piece)` (write piece cells to grid) and `Board.clearLines()` (remove full rows, shift rows down, return `linesCleared`) in `src/board.js`
+- [X] T017 [US1] Implement piece spawn: `spawnPiece(type)` sets initial `x` (centre of board), `y` (-1), `rotation=0`, `shape` from tetrominos table in `src/game.js`
+- [X] T018 [US1] Implement gravity timer and auto-fall logic: each frame advance `gravityTimer` by `deltaTime`; move piece down when timer exceeds `gravityInterval`; lock piece on collision in `src/game.js`
+- [X] T019 [US1] Implement move-left, move-right, and soft-drop actions with collision checks (`canPlace`) in `src/game.js`
+- [X] T020 [US1] Implement SRS rotation with Wall Kick: try each offset from research.md tables; apply first that passes `canPlace`; cancel rotation if all fail in `src/game.js`
+- [X] T021 [US1] Implement piece-locking sequence: call `lockPiece()`, call `clearLines()`, update `score` (100/300/500/800 × level for 1/2/3/4 lines), increment `totalLinesCleared`, compute new `level`, spawn next piece in `src/game.js`
+- [X] T022 [P] [US1] Implement keyboard input handler: `keydown` / `keyup` listeners mapping Arrow keys, `Z`/`X` to `InputState` flags; debounce left/right repeat with `DAS`/`ARR` timing in `src/input.js`
+- [X] T023 [US1] Implement `Renderer.drawBoard(ctx, board)` — clear canvas, draw background grid, iterate `board.grid` and call `drawCell()` for each occupied cell per ui-contract.md §3.1–3.2 in `src/renderer.js`
+- [X] T024 [US1] Implement `Renderer.drawPiece(ctx, piece, alpha)` using `drawCell()` spec (fill + bright top-left edge + dark bottom-right edge) in `src/renderer.js`
+- [X] T025 [US1] Implement `main.js` entry point: acquire canvas contexts, instantiate `SevenBagRandomizer`, create initial `GameState`, start `requestAnimationFrame` loop that reads `InputState`, updates game logic, and calls renderer each frame in `src/main.js`
 
 **Checkpoint**: User Story 1 fully functional — a playable MVP Tetris game in the browser ✅
 
@@ -84,11 +84,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T026 [US2] Implement Game Over detection: after `lockPiece()`, call `spawnPiece(nextType)`; if `!canPlace(newPiece)` set `state.status = 'gameover'` and save high score to `localStorage` in `src/game.js`
-- [ ] T027 [P] [US2] Implement `Renderer.showGameOver(finalScore)` — set `#game-over-overlay` to visible, write `finalScore` to `#final-score` in `src/renderer.js`
-- [ ] T028 [US2] Implement restart action: reset `board` to empty 10×20 grid, `score=0`, `level=1`, `totalLinesCleared=0`, `status='playing'`, `gravityTimer=0`; reinitialize `SevenBagRandomizer`; hide overlay; spawn first piece in `src/game.js`
-- [ ] T029 [P] [US2] Add `R` key handler and `#start-btn` click handler that call the restart action when `status === 'gameover'` or `status === 'idle'` in `src/input.js`
-- [ ] T030 [US2] Wire Game Over and restart flow in the game loop: when `status === 'gameover'` skip physics update; when restart fires transition `status` to `'playing'`; update button label text accordingly in `src/main.js`
+- [X] T026 [US2] Implement Game Over detection: after `lockPiece()`, call `spawnPiece(nextType)`; if `!canPlace(newPiece)` set `state.status = 'gameover'` and save high score to `localStorage` in `src/game.js`
+- [X] T027 [P] [US2] Implement `Renderer.showGameOver(finalScore)` — set `#game-over-overlay` to visible, write `finalScore` to `#final-score` in `src/renderer.js`
+- [X] T028 [US2] Implement restart action: reset `board` to empty 10×20 grid, `score=0`, `level=1`, `totalLinesCleared=0`, `status='playing'`, `gravityTimer=0`; reinitialize `SevenBagRandomizer`; hide overlay; spawn first piece in `src/game.js`
+- [X] T029 [P] [US2] Add `R` key handler and `#start-btn` click handler that call the restart action when `status === 'gameover'` or `status === 'idle'` in `src/input.js`
+- [X] T030 [US2] Wire Game Over and restart flow in the game loop: when `status === 'gameover'` skip physics update; when restart fires transition `status` to `'playing'`; update button label text accordingly in `src/main.js`
 
 **Checkpoint**: Game Over and restart cycle fully functional; User Stories 1 and 2 both work independently ✅
 
@@ -102,15 +102,15 @@
 
 ### Tests for User Story 3 ⚠️ Write FIRST — must FAIL before implementation
 
-- [ ] T031 [US3] Write scoring unit tests: 1/2/3/4 lines cleared × level 1 and level 3 returns correct score delta; `totalLinesCleared` and `level` update correctly at every 10-line boundary in `tests/unit/game.test.js`
-- [ ] T032 [P] [US3] Write gravity speed unit tests: `gravityInterval` for levels 1–10 matches formula `Math.max(50, 800 / 1.1 ** (level-1))` ms; level 1 = 800 ms, level 10 ≤ ~309 ms in `tests/unit/game.test.js`
+- [X] T031 [US3] Write scoring unit tests: 1/2/3/4 lines cleared × level 1 and level 3 returns correct score delta; `totalLinesCleared` and `level` update correctly at every 10-line boundary in `tests/unit/game.test.js`
+- [X] T032 [P] [US3] Write gravity speed unit tests: `gravityInterval` for levels 1–10 matches formula `Math.max(50, 800 / 1.1 ** (level-1))` ms; level 1 = 800 ms, level 10 ≤ ~309 ms in `tests/unit/game.test.js`
 
 ### Implementation for User Story 3
 
-- [ ] T033 [US3] Extract and harden `calculateScore(linesCleared, level)` pure function returning correct score delta per FR-006 table in `src/game.js`
-- [ ] T034 [US3] Extract and harden `calculateLevel(totalLinesCleared)` pure function returning `Math.floor(totalLinesCleared / 10) + 1` in `src/game.js`
-- [ ] T035 [US3] Extract and harden `calculateGravityInterval(level)` pure function returning `Math.max(50, 800 / Math.pow(1.1, level - 1))` ms per SC-005 in `src/game.js`
-- [ ] T036 [P] [US3] Update sidebar UI elements after each score/level change: write to `#score`, `#level`, `#lines` DOM elements in `src/renderer.js`
+- [X] T033 [US3] Extract and harden `calculateScore(linesCleared, level)` pure function returning correct score delta per FR-006 table in `src/game.js`
+- [X] T034 [US3] Extract and harden `calculateLevel(totalLinesCleared)` pure function returning `Math.floor(totalLinesCleared / 10) + 1` in `src/game.js`
+- [X] T035 [US3] Extract and harden `calculateGravityInterval(level)` pure function returning `Math.max(50, 800 / Math.pow(1.1, level - 1))` ms per SC-005 in `src/game.js`
+- [X] T036 [P] [US3] Update sidebar UI elements after each score/level change: write to `#score`, `#level`, `#lines` DOM elements in `src/renderer.js`
 
 **Checkpoint**: Scoring and level progression fully functional; verify with quickstart.md acceptance scenarios ✅
 
@@ -124,9 +124,9 @@
 
 ### Implementation for User Story 4
 
-- [ ] T037 [US4] Ensure `GameState.nextPieceType` is populated from `SevenBagRandomizer.peek()` on game start and updated to `peek()` after each `next()` call in `src/game.js`
-- [ ] T038 [US4] Implement `Renderer.drawNextPiece(ctx, pieceType)` — clear 120×120 canvas, centre and draw the preview piece shape using `drawCell()` per ui-contract.md §3.4 in `src/renderer.js`
-- [ ] T039 [US4] Call `Renderer.drawNextPiece()` each frame with `state.nextPieceType` in the main render pipeline in `src/main.js`
+- [X] T037 [US4] Ensure `GameState.nextPieceType` is populated from `SevenBagRandomizer.peek()` on game start and updated to `peek()` after each `next()` call in `src/game.js`
+- [X] T038 [US4] Implement `Renderer.drawNextPiece(ctx, pieceType)` — clear 120×120 canvas, centre and draw the preview piece shape using `drawCell()` per ui-contract.md §3.4 in `src/renderer.js`
+- [X] T039 [US4] Call `Renderer.drawNextPiece()` each frame with `state.nextPieceType` in the main render pipeline in `src/main.js`
 
 **Checkpoint**: Next-piece preview renders correctly and updates on each piece lock ✅
 
@@ -140,11 +140,11 @@
 
 ### Implementation for User Story 5
 
-- [ ] T040 [US5] Implement `calculateDropDistance(piece, board)` — iterate downward from current `y` until `!canPlace`; return number of cells dropped in `src/game.js`
-- [ ] T041 [US5] Implement hard drop action: call `calculateDropDistance()`, move piece to drop position, add `2 × distance` to `score`, immediately call piece-locking sequence in `src/game.js`
-- [ ] T042 [P] [US5] Add `Space` key handler in keyboard listener that sets `InputState.hardDrop = true` (single-trigger, cleared each frame) in `src/input.js`
-- [ ] T043 [US5] Implement `Renderer.drawGhostPiece(ctx, piece, board)` — compute drop position via `calculateDropDistance()`, draw piece shape at ghost position with `globalAlpha = 0.3` per ui-contract.md §3.3 in `src/renderer.js`
-- [ ] T044 [US5] Add ghost piece render call before current piece render in the main render pipeline in `src/main.js`
+- [X] T040 [US5] Implement `calculateDropDistance(piece, board)` — iterate downward from current `y` until `!canPlace`; return number of cells dropped in `src/game.js`
+- [X] T041 [US5] Implement hard drop action: call `calculateDropDistance()`, move piece to drop position, add `2 × distance` to `score`, immediately call piece-locking sequence in `src/game.js`
+- [X] T042 [P] [US5] Add `Space` key handler in keyboard listener that sets `InputState.hardDrop = true` (single-trigger, cleared each frame) in `src/input.js`
+- [X] T043 [US5] Implement `Renderer.drawGhostPiece(ctx, piece, board)` — compute drop position via `calculateDropDistance()`, draw piece shape at ghost position with `globalAlpha = 0.3` per ui-contract.md §3.3 in `src/renderer.js`
+- [X] T044 [US5] Add ghost piece render call before current piece render in the main render pipeline in `src/main.js`
 
 **Checkpoint**: Hard Drop and Ghost Piece fully functional; all 5 user stories independently working ✅
 
@@ -154,13 +154,13 @@
 
 **Purpose**: Improvements that apply across multiple user stories (localStorage, touch gestures, final CSS polish)
 
-- [ ] T045 [P] Implement `localStorage` high score persistence: load `highScore` from `localStorage.getItem('highScore')` on game init; save on game over if `score > highScore`; update `#high-score` DOM element in `src/game.js`
-- [ ] T046 [P] Update `#high-score` element whenever `highScore` changes (game init + new high score during play) in `src/renderer.js`
-- [ ] T047 Implement touch gesture handler in `src/input.js`: `touchstart` record `startX`/`startY`; `touchend` compute delta — swipe left (→ moveLeft), swipe right (→ moveRight), swipe down (→ softDrop), swipe up (→ hardDrop), tap with small delta (→ rotateCW) per FR-015
-- [ ] T048 [P] Add responsive CSS: `max-width` media query for mobile portrait, ensure canvas and sidebar stack vertically on narrow screens in `index.html` `<style>` block
-- [ ] T049 [P] Run all unit tests (`npm test`) and confirm board.test.js, game.test.js, tetrominos.test.js all pass with no failures
-- [ ] T050 Run quickstart.md validation: serve game with `python3 -m http.server 8080`, manually verify all acceptance scenarios for US1–US5 in Chrome, Firefox, and Edge
-- [ ] T051 [P] Final git verification: run `git status --short --branch` and confirm all source files committed with no untracked files
+- [X] T045 [P] Implement `localStorage` high score persistence: load `highScore` from `localStorage.getItem('highScore')` on game init; save on game over if `score > highScore`; update `#high-score` DOM element in `src/game.js`
+- [X] T046 [P] Update `#high-score` element whenever `highScore` changes (game init + new high score during play) in `src/renderer.js`
+- [X] T047 Implement touch gesture handler in `src/input.js`: `touchstart` record `startX`/`startY`; `touchend` compute delta — swipe left (→ moveLeft), swipe right (→ moveRight), swipe down (→ softDrop), swipe up (→ hardDrop), tap with small delta (→ rotateCW) per FR-015
+- [X] T048 [P] Add responsive CSS: `max-width` media query for mobile portrait, ensure canvas and sidebar stack vertically on narrow screens in `index.html` `<style>` block
+- [X] T049 [P] Run all unit tests (`npm test`) and confirm board.test.js, game.test.js, tetrominos.test.js all pass with no failures
+- [X] T050 Run quickstart.md validation: serve game with `python3 -m http.server 8080`, manually verify all acceptance scenarios for US1–US5 in Chrome, Firefox, and Edge
+- [X] T051 [P] Final git verification: run `git status --short --branch` and confirm all source files committed with no untracked files
 
 ---
 
