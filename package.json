@@ -1,0 +1,17 @@
+{
+  "name": "tetris-game",
+  "version": "1.0.0",
+  "description": "俄羅斯方塊遊戲 (Tetris Game)",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "transform": {},
+    "testEnvironment": "node"
+  }
+}
